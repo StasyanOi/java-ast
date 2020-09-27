@@ -6,7 +6,6 @@ import com.parts.ImportStaticDeclaration;
 import com.parts.PackageDeclaration;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
-import guru.nidi.graphviz.model.Factory;
 import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.SneakyThrows;
@@ -19,12 +18,12 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static guru.nidi.graphviz.model.Factory.*;
+import static guru.nidi.graphviz.model.Factory.mutGraph;
+import static guru.nidi.graphviz.model.Factory.mutNode;
 import static java.lang.String.join;
 import static java.util.Arrays.stream;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
-import static java.util.stream.Collectors.collectingAndThen;
 
 public class JavaParser {
     public static void parse(String[] args) throws IOException {
@@ -75,12 +74,13 @@ public class JavaParser {
         importDeclarations.forEach(importDeclaration -> impord.addLink(importDeclaration.getNode()));
         importStaticDeclarations
                 .forEach(importStaticDeclaration -> importStatic.addLink(importStaticDeclaration.getNode()));
+
         classDeclarations.forEach(classDeclaration -> classes.addLink(classDeclaration.getNode()));
 
         file.addLink(packaje, impord, importStatic, classes);
 
-        MutableGraph mutableGraph = mutGraph(javaFile.toString()).add(file.setName("FIle"));
-        Graphviz.fromGraph(mutableGraph).render(Format.DOT).toFile(new File(ASTFileName));
+        MutableGraph mutableGraph = mutGraph(javaFile.toString()).add(file.setName("File"));
+        Graphviz.fromGraph(mutableGraph).render(Format.DOT).toFile(Paths.get("ASTs",ASTFileName).toFile());
     }
 
     private static List<ClassDeclaration> getClasses(List<String> codeLines) {
@@ -91,9 +91,10 @@ public class JavaParser {
 
         String classes = join("", classLines);
         classes = classes.replace("class", "|class");
+        classes = classes.replace("}}", "}}|");
         return attachModifiers(stream(classes.split("\\|")).collect(toList()))
                 .stream()
-                .map(line -> getClassDeclaration(line))
+                .map(JavaParser::getClassDeclaration)
                 .collect(toList());
     }
 
@@ -118,8 +119,7 @@ public class JavaParser {
                 classesAndModifiers.set(i + 1, clazz);
             }
 
-            return classesAndModifiers.stream().filter(line -> line.contains("class")).collect(toList());
         }
-        return null;
+        return classesAndModifiers.stream().filter(line -> line.contains("class")).collect(toList());
     }
 }

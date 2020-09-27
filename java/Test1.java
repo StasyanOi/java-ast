@@ -20,14 +20,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 import static java.util.stream.Collectors.collectingAndThen;
 
-public abstract class Test1 {
-
-    public static void main(String[] args) {
-        System.out.println("Hello world");
-    }
-}
-
-class Test2 {
+public class Test1 {
 
     public static void main(String[] args) {
         System.out.println("Hello world");
