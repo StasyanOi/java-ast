@@ -1,6 +1,6 @@
 package com.parts;
 
-import guru.nidi.graphviz.model.Factory;
+import com.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,6 @@ public class PackageDeclaration {
     private String name;
 
     public MutableNode getNode(){
-        return Factory.mutNode(name);
+        return JavaParser.getNode(name);
     }
 }

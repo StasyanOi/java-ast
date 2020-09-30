@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static guru.nidi.graphviz.model.Factory.mutGraph;
@@ -63,12 +64,12 @@ public class JavaParser {
 
         String ASTFileName = "AST_" + javaFile.toString().replace(".java", "") + ".dot";
 
-        MutableNode file = mutNode("File");
+        MutableNode file = getNode("File");
 
-        MutableNode packaje = mutNode("Package");
-        MutableNode impord = mutNode("Import");
-        MutableNode importStatic = mutNode("Import Static");
-        MutableNode classes = mutNode("Classes");
+        MutableNode packaje = getNode("Package");
+        MutableNode impord = getNode("Import");
+        MutableNode importStatic = getNode("Import Static");
+        MutableNode classes = getNode("Classes");
 
         packageDeclarations.forEach(packageDeclaration -> packaje.addLink(packageDeclaration.getNode()));
         importDeclarations.forEach(importDeclaration -> impord.addLink(importDeclaration.getNode()));
@@ -81,6 +82,10 @@ public class JavaParser {
 
         MutableGraph mutableGraph = mutGraph(javaFile.toString()).add(file.setName("File"));
         Graphviz.fromGraph(mutableGraph).render(Format.DOT).toFile(Paths.get("ASTs",ASTFileName).toFile());
+    }
+
+    public static MutableNode getNode(String string) {
+        return mutNode(UUID.randomUUID().toString()).add("label", string);
     }
 
     private static List<ClassDeclaration> getClasses(List<String> codeLines) {
