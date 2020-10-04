@@ -11,12 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ForLoop implements Declaration {
+public class WhileLoop implements Declaration {
 
-    com.parts.method.Expression init;
-    com.parts.method.Expression limit;
-    com.parts.method.Expression increment;
-    com.parts.method.Body body;
+    Expression expression;
+    Body body;
 
     @Override
     public MutableNode getNode() {
