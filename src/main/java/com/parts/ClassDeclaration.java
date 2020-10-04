@@ -78,7 +78,7 @@ public class ClassDeclaration implements Declaration {
                 String params = getParams(bodyLine.substring(pivot));
                 String newPos = methodBody.substring(methodBody.lastIndexOf("}") + 2);
                 i = Integer.parseInt(newPos);
-                methodBody = methodBody.substring(0,methodBody.length() - 1);
+                methodBody = methodBody.substring(0,methodBody.lastIndexOf("}") + 1);
                 MethodDeclaration methodDeclaration = new MethodDeclaration(name, modifiers, returnType, params, methodBody);
                 methods.add(methodDeclaration);
             }
@@ -97,12 +97,17 @@ public class ClassDeclaration implements Declaration {
 
     private String getMethodBody(int i, String[] bodyLines) {
         StringBuilder methodBody  = new StringBuilder("");
+        int rightSquglyCount = 0;
         ++i;
+        if (bodyLines[i].equals("{")) {++rightSquglyCount;};
         while (!bodyLines[i].contains("}")) {
             methodBody.append(bodyLines[i]).append("\n");
             ++i;
+            if (bodyLines[i].equals("{")) {++rightSquglyCount;};
         }
-        methodBody.append("}\n");
+        for (int j = 0; j < rightSquglyCount; j++) {
+            methodBody.append("}\n");
+        }
         return methodBody.toString()+i;
     }
 }
