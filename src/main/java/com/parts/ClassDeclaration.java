@@ -97,16 +97,20 @@ public class ClassDeclaration implements Declaration {
 
     private String getMethodBody(int i, String[] bodyLines) {
         StringBuilder methodBody  = new StringBuilder("");
+        int leftSquglyCount = 0;
         int rightSquglyCount = 0;
         ++i;
-        if (bodyLines[i].equals("{")) {++rightSquglyCount;};
-        while (!bodyLines[i].contains("}")) {
+        while (true) {
             methodBody.append(bodyLines[i]).append("\n");
+            if (bodyLines[i].contains("}") && leftSquglyCount - rightSquglyCount == 1) {
+                break;
+            }
+            if (bodyLines[i].contains("{")) {++leftSquglyCount;};
+            if (bodyLines[i].contains("}")) {
+                ++rightSquglyCount;
+            };
             ++i;
-            if (bodyLines[i].equals("{")) {++rightSquglyCount;};
-        }
-        for (int j = 0; j < rightSquglyCount; j++) {
-            methodBody.append("}\n");
+
         }
         return methodBody.toString()+i;
     }

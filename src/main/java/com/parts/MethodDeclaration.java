@@ -1,6 +1,7 @@
 package com.parts;
 
 import com.JavaParser;
+import com.parts.method.Body;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,7 @@ public class MethodDeclaration implements Declaration{
         MutableNode paramNode = JavaParser.getNode(this.params);
         MutableNode bodyNode = JavaParser.getNode(this.body);
 
-        List<Declaration> declarations = getBodyNodes(this.body);
+        MutableNode bodyNode1 = getBodyNode(this.body);
 
         methodNode.addLink(modifierNode);
         methodNode.addLink(paramNode);
@@ -36,15 +37,11 @@ public class MethodDeclaration implements Declaration{
         return methodNode;
     }
 
-    private List<Declaration> getBodyNodes(String body) {
-        String newBody = body.replace("}", "};");
-
-        body = newBody.substring(0,newBody.length() - 1);
-
-        StringTokenizer stringTokenizer = new StringTokenizer( "");
-
+    private MutableNode getBodyNode(String body) {
+        Body body1 = new Body(body);
         return null;
     }
+
     private enum Operator
     {
         ADD(1), SUBTRACT(2), MULTIPLY(3), DIVIDE(4);

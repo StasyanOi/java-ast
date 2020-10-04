@@ -28,13 +28,30 @@ public class Test1 {
         int a = 123;
         int b = 123;
         int c = a + b;
+        for (int j = 0; j < 10; j++) {
 
+        }
+        while (a > 123) {
+
+        }
+        while (true) {
+
+        }
+        while (true) {
+
+        }
         int i;
 
         for (int i = 0; i < 10; i++) {
             int g = 123;
             int v = 123;
             int c = g * v;
+            int g = 123123;
+            for (int j = 0; j < 10; j++) {
+
+            }
+            int g = 123123;
+            int g = 123123;
         }
     }
 }

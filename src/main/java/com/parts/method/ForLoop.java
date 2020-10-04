@@ -13,7 +13,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ForLoop implements Declaration {
 
-    com.parts.method.Declaration body;
+    com.parts.method.Expression init;
+    com.parts.method.Expression limit;
+    com.parts.method.Body increment;
 
     @Override
     public MutableNode getNode() {
