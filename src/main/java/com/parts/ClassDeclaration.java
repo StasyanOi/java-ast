@@ -61,9 +61,9 @@ public class ClassDeclaration implements Declaration {
 
                 ExpressionDeclaration expressionDeclaration;
                 if(expr.length == 2) {
-                    expressionDeclaration = new ExpressionDeclaration(expr[1]);
+                    expressionDeclaration = new ExpressionDeclaration(expr[0], expr[1]);
                 } else {
-                    expressionDeclaration = new ExpressionDeclaration(expr[1], expr[2], expr[3]);
+                    expressionDeclaration = new ExpressionDeclaration(expr[0], expr[1], expr[2], expr[3]);
                 }
                 expressions.add(expressionDeclaration);
             } else if (bodyLine.contains("(") && bodyLine.contains(")") && !bodyLine.contains(";")) {
@@ -76,7 +76,8 @@ public class ClassDeclaration implements Declaration {
                 String methodBody = getMethodBody(i, bodyLines);
                 String modifiers = modifiersAndReturnType.replace(returnType, "");
                 String params = getParams(bodyLine.substring(pivot));
-                i = methodBody.charAt(methodBody.length()-1);
+                String newPos = methodBody.substring(methodBody.lastIndexOf("}") + 2);
+                i = Integer.parseInt(newPos);
                 methodBody = methodBody.substring(0,methodBody.length() - 1);
                 MethodDeclaration methodDeclaration = new MethodDeclaration(name, modifiers, returnType, params, methodBody);
                 methods.add(methodDeclaration);

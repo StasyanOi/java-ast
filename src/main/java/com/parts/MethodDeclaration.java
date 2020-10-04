@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 @Getter
 @Setter
@@ -26,10 +27,23 @@ public class MethodDeclaration implements Declaration{
         MutableNode modifierNode = JavaParser.getNode(this.modifiers);
         MutableNode paramNode = JavaParser.getNode(this.params);
         MutableNode bodyNode = JavaParser.getNode(this.body);
+
+        List<Declaration> declarations = getBodyNodes(this.body);
+
         methodNode.addLink(modifierNode);
         methodNode.addLink(paramNode);
         methodNode.addLink(bodyNode);
         methodNode.addLink(returnTypeNode);
         return methodNode;
+    }
+
+    private List<Declaration> getBodyNodes(String body) {
+        String newBody = body.replace("}", "};");
+
+        body = newBody.substring(0,newBody.length() - 1);
+
+        StringTokenizer stringTokenizer = new StringTokenizer( "");
+
+        return null;
     }
 }

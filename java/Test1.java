@@ -20,12 +20,22 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 import static java.util.stream.Collectors.collectingAndThen;
 
-public static class Test1 {
+public class Test1 {
 
     int a = 0;
 
-    public static void main(String[] args, String[] args) {
-        System.out.println("Hello world");
+    public static void main(String[] args) {
+        int a = 123;
+        int b = 123;
+        int c = a + b;
+
+        int i;
+
+        for (int i = 0; i < 10; i++) {
+            int g = 123;
+            int v = 123;
+            int c = g * v;
+        }
     }
 }
 
