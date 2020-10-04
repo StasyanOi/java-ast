@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImportDeclaration {
+public class ImportDeclaration implements Declaration{
     private String name;
 
     public MutableNode getNode(){
