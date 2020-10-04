@@ -4,6 +4,7 @@ import com.parts.ClassDeclaration;
 import com.parts.ImportDeclaration;
 import com.parts.ImportStaticDeclaration;
 import com.parts.PackageDeclaration;
+import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import guru.nidi.graphviz.model.MutableGraph;
@@ -43,20 +44,23 @@ public class JavaParser {
 
         List<String> codeLines = Files.lines(Paths.get("java", javaFile.toString())).collect(
                 collectingAndThen(joining()
-                        , fileCode -> stream(fileCode.split(";")).collect(toList())));
+                        , fileCode -> stream(fileCode.split(";")).map(line -> line + ";").collect(toList())));
 
         List<PackageDeclaration> packageDeclarations = codeLines.stream()
                 .filter(line -> line.contains("package"))
-                .map(line -> new PackageDeclaration(line.replace("package", "")))
+                .map(line -> new PackageDeclaration(line.replace("package", "")
+                        .replace(";","")))
                 .collect(toList());
 
         List<ImportDeclaration> importDeclarations = codeLines.stream().filter(line -> line.contains("import") && !line.contains("static"))
-                .map(line -> new ImportDeclaration(line.replace("import", "")))
+                .map(line -> new ImportDeclaration(line.replace("import", "")
+                        .replace(";","")))
                 .collect(toList());
 
         List<ImportStaticDeclaration> importStaticDeclarations = codeLines.stream()
                 .filter(line -> line.contains("import") && line.contains("static"))
-                .map(line -> new ImportStaticDeclaration(line.replace("import static", "")))
+                .map(line -> new ImportStaticDeclaration(line.replace("import static", "")
+                        .replace(";","")))
                 .collect(toList());
 
         List<ClassDeclaration> classDeclarations = getClasses(codeLines);
@@ -85,7 +89,7 @@ public class JavaParser {
     }
 
     public static MutableNode getNode(String string) {
-        return mutNode(UUID.randomUUID().toString()).add("label", string);
+        return mutNode(UUID.randomUUID().toString()).add(Shape.BOX).add("label", string);
     }
 
     private static List<ClassDeclaration> getClasses(List<String> codeLines) {
@@ -97,7 +101,9 @@ public class JavaParser {
         String classes = join("", classLines);
         classes = classes.replace("class", "|class");
         classes = classes.replace("}}", "}}|");
-        return attachModifiers(stream(classes.split("\\|")).collect(toList()))
+        List<String> classesAndModifiers = stream(classes.split("\\|"))
+                .collect(toList());
+        return attachModifiers(classesAndModifiers.subList(0 , classesAndModifiers.size() - 1))
                 .stream()
                 .map(JavaParser::getClassDeclaration)
                 .collect(toList());
