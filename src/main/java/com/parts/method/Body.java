@@ -1,8 +1,10 @@
 package com.parts.method;
 
+import com.JavaParser;
 import com.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
+import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +19,11 @@ public class Body implements Declaration {
     private List<com.parts.method.WhileLoop> whileLoops;
 
     public Body(String body) {
+        body = body.replace("{", "\n{\n")
+                .replace(";", ";\n")
+                .replace("}", "}\n");
+
+        body = body.substring(0, body.length() - 1);
         String[] split = body.split("\n");
 
         String bodyLine = String.join("", split);
@@ -141,6 +148,11 @@ public class Body implements Declaration {
 
     @Override
     public MutableNode getNode() {
-        return null;
+        MutableNode body = JavaParser.getNode("body");
+        expressions.forEach(expression -> body.addLink(expression.getNode()));
+        declarations.forEach(declaration -> body.addLink(declaration.getNode()));
+        forLoops.forEach(forLoop -> body.addLink(forLoop.getNode()));
+        whileLoops.forEach(whileLoop -> body.addLink(whileLoop.getNode()));
+        return body;
     }
 }

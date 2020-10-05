@@ -1,5 +1,6 @@
 package com.parts.method;
 
+import com.JavaParser;
 import com.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
@@ -17,11 +18,23 @@ public class WhileLoop implements Declaration {
     Body body;
 
     public WhileLoop(String whileLoop) {
-
+        int start = whileLoop.indexOf("(");
+        int finish = whileLoop.indexOf(")");
+        int bodyStart = whileLoop.indexOf("{");
+        String expressions = whileLoop.substring(start, finish+1)
+                .replace("(", "")
+                .replace(")", "");
+        this.expression = new Expression(expressions);
+        String body = whileLoop.substring(bodyStart);
+        this.body = new Body(body);
     }
 
     @Override
     public MutableNode getNode() {
-        return null;
+        MutableNode whileLoop = JavaParser.getNode("while");
+
+        whileLoop.addLink(expression.getNode());
+        whileLoop.addLink(body.getNode());
+        return whileLoop;
     }
 }

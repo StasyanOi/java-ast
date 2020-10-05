@@ -1,5 +1,6 @@
 package com.parts.method;
 
+import com.JavaParser;
 import com.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
@@ -17,11 +18,14 @@ public class Expression implements Declaration {
     Declaration rightOperand;
 
     public Expression(String expressions) {
-
+        this.expression = expressions;
     }
 
     @Override
     public MutableNode getNode() {
-        return null;
+        MutableNode expr = JavaParser.getNode("expr");
+        MutableNode expression = JavaParser.getNode(this.expression);
+        expr.addLink(expression);
+        return expr;
     }
 }

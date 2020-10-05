@@ -26,9 +26,7 @@ public class MethodDeclaration implements Declaration{
         MutableNode returnTypeNode = JavaParser.getNode(this.returnType);
         MutableNode modifierNode = JavaParser.getNode(this.modifiers);
         MutableNode paramNode = JavaParser.getNode(this.params);
-        MutableNode bodyNode = JavaParser.getNode(this.body);
-
-        MutableNode bodyNode1 = getBodyNode(this.body);
+        MutableNode bodyNode = getBodyNode(this.body);
 
         methodNode.addLink(modifierNode);
         methodNode.addLink(paramNode);
@@ -38,8 +36,9 @@ public class MethodDeclaration implements Declaration{
     }
 
     private MutableNode getBodyNode(String body) {
+        body = body.replace("\n","");
         Body body1 = new Body(body);
-        return null;
+        return body1.getNode();
     }
 
     private enum Operator

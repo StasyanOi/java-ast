@@ -1,5 +1,6 @@
 package com.parts.method;
 
+import com.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +16,20 @@ public class Declaration implements com.parts.Declaration {
     String var;
 
     public Declaration(String declaration) {
-
+        String trimedDecl = declaration.trim();
+        trimedDecl = trimedDecl.substring(0, trimedDecl.length() - 1);
+        String[] typeAndVar = trimedDecl.split(" ");
+        this.type = typeAndVar[0];
+        this.var = typeAndVar[1];
     }
 
     @Override
     public MutableNode getNode() {
-        return null;
+        MutableNode decl = JavaParser.getNode("decl");
+        MutableNode typeNode = JavaParser.getNode(type);
+        MutableNode varNode = JavaParser.getNode(var);
+        decl.addLink(typeNode);
+        decl.addLink(varNode);
+        return decl;
     }
 }
