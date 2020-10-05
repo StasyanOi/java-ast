@@ -14,6 +14,10 @@ public class Declaration implements com.parts.Declaration {
     String type;
     String var;
 
+    public Declaration(String declaration) {
+
+    }
+
     @Override
     public MutableNode getNode() {
         return null;

@@ -6,7 +6,8 @@ import guru.nidi.graphviz.model.MutableNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class Body implements Declaration {
 
@@ -26,11 +27,19 @@ public class Body implements Declaration {
             bodyLine = bodyLine.replace(forLoops.get(i), "");
         }
 
+        this.forLoops = forLoops.stream()
+                .map(ForLoop::new)
+                .collect(toList());
+
         //get while loops
         List<String> whileLoops = getWhileLoops(split);
         for (int i = 0; i < whileLoops.size(); i++) {
             bodyLine = bodyLine.replace(whileLoops.get(i), "");
         }
+
+        this.whileLoops = whileLoops.stream()
+                .map(WhileLoop::new)
+                .collect(toList());
 
         //get expression
         bodyLine = bodyLine.replace("{", "{\n").replace(";", ";\n");
@@ -41,6 +50,10 @@ public class Body implements Declaration {
             bodyLine = bodyLine.replace(expressions.get(i),"");
         }
 
+        this.expressions = expressions.stream()
+                .map(Expression::new)
+                .collect(toList());
+
         //get declaration
         bodyLine = bodyLine.replace("{", "{\n").replace(";", ";\n");
         String[] strings1 = bodyLine.split("\n");
@@ -50,6 +63,12 @@ public class Body implements Declaration {
         }
 
 
+        this.declarations = declarations.stream()
+                .map(com.parts.method.Declaration::new)
+                .collect(toList());
+
+
+
 
 
     }
@@ -57,14 +76,14 @@ public class Body implements Declaration {
     private List<String> getDeclarations(String[] strings1) {
         List<String> collect = Arrays.stream(strings1).filter(line -> line.trim()
                 .matches("[A-Za-z0-9]* [a-z][a-zA-Z0-9]*;"))
-                .collect(Collectors.toList());
+                .collect(toList());
         return collect;
     }
 
     private List<String> getExpressions(String[] split) {
         List<String> expressions = Arrays.stream(split)
                 .filter(line -> line.matches(".*[+-/*=].*"))
-                .collect(Collectors.toList());
+                .collect(toList());
         return expressions;
     }
 

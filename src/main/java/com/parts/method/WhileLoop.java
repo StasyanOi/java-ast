@@ -16,6 +16,10 @@ public class WhileLoop implements Declaration {
     Expression expression;
     Body body;
 
+    public WhileLoop(String whileLoop) {
+
+    }
+
     @Override
     public MutableNode getNode() {
         return null;

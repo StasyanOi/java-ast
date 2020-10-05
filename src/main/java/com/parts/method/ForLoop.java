@@ -18,6 +18,10 @@ public class ForLoop implements Declaration {
     com.parts.method.Expression increment;
     com.parts.method.Body body;
 
+    public ForLoop(String forLoop) {
+
+    }
+
     @Override
     public MutableNode getNode() {
         return null;

@@ -16,6 +16,10 @@ public class Expression implements Declaration {
     String expression;
     Declaration rightOperand;
 
+    public Expression(String expressions) {
+
+    }
+
     @Override
     public MutableNode getNode() {
         return null;
