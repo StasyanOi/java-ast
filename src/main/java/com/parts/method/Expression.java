@@ -50,12 +50,12 @@ public class Expression implements Declaration {
         expressions.add(s);
         String[] split = expression.split(s);
         expressions.add(split[0].trim());
-        expressions.add(split[1]);
+        expressions.add(split[1].trim());
     }
 
     @Override
     public MutableNode getNode() {
-        MutableNode expr = JavaParser.getNode("expr " + expressions.get(0));
+        MutableNode expr = JavaParser.getNode("expr " + expressions.get(0).trim());
         expressions.stream()
                 .skip(1)
                 .map(this::getNodeInternal)
