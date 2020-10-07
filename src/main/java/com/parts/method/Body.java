@@ -29,6 +29,16 @@ public class Body implements Declaration {
 
         String bodyLine = String.join("", split);
 
+        //get ifs
+        List<String> ifs = getIfs(split);
+        for (int i = 0; i < ifs.size(); i++) {
+            bodyLine = bodyLine.replace(ifs.get(i),"");
+        }
+
+        this.ifs = ifs.stream()
+                .map(com.parts.method.If::new)
+                .collect(toList());
+
         //get for loops
         List<String> forLoops = getForLoops(split);
         for (int i = 0; i < forLoops.size(); i++) {
@@ -49,15 +59,6 @@ public class Body implements Declaration {
                 .map(WhileLoop::new)
                 .collect(toList());
 
-        //get ifs
-        List<String> ifs = getIfs(split);
-        for (int i = 0; i < ifs.size(); i++) {
-            bodyLine = bodyLine.replace(ifs.get(i),"");
-        }
-
-        this.ifs = ifs.stream()
-                .map(com.parts.method.If::new)
-                .collect(toList());
 
 
 

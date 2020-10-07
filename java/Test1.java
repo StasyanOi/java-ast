@@ -8,14 +8,10 @@ public class Test1{
         int r = 1;
         for (int i = 1; i <= n; i++){
             r = r * i;
-            if (r < 100)
-            {
-                while (r > 20) {
-                    ++r;
-                }
-            }
         }
-
+        if (r > 100) {
+            System.out.println("The factorial is begger than 100");
+        }
         return r;
     }
 
@@ -24,9 +20,6 @@ public class Test1{
         String string = "10";
 
         int l = parseInt(string);
-        if (l == 10) {
-            l = 100;
-        }
 
         for (int i = 0; i < 100; i++) {
             System.out.println(i);
