@@ -27,25 +27,36 @@ public class Test1 {
     public static void main(String[] args) {
         int a = 123;
         int b = 123;
-        int c = a + b;
+        int c = 1 + 4 - 2 * 7;
         for (int j = 0; j < 10; j++) {
-
+            int a = (6 * 4) * 7 - (3 - 9);
         }
         while (a > 123) {
 
         }
         while (true) {
-
+            for (int j = 0; j < 10; j++) {
+                int a = (6 * 4) * 7 - (3 - 9);
+            }
         }
         while (true) {
+            for (int i = 0; i < 10; i++) {
+                int g = 123;
+                int v = 123;
+                int c = 2 * 1;
+                int g = 123123;
+                for (int j = 0; j < 10; j++) {
 
+                }
+                int g = 123123;
+                int g = 123123;
+            }
         }
         int i;
-
         for (int i = 0; i < 10; i++) {
             int g = 123;
             int v = 123;
-            int c = g * v;
+            int c = 2 * 1;
             int g = 123123;
             for (int j = 0; j < 10; j++) {
 
@@ -53,12 +64,5 @@ public class Test1 {
             int g = 123123;
             int g = 123123;
         }
-    }
-}
-
-public class Test2 {
-
-    public static void main(String[] args) {
-        System.out.println("Hello world");
     }
 }
