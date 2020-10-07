@@ -50,18 +50,9 @@ public class Body implements Declaration {
                 .collect(toList());
 
         //get ifs
-        bodyLine = bodyLine.replace("{", "{\n")
-                .replace("}", "}\n")
-                .replace(";", ";\n");
-        String[] strings2 = bodyLine.split("\n");
-        List<String> ifs = getIfs(strings2);
+        List<String> ifs = getIfs(split);
         for (int i = 0; i < ifs.size(); i++) {
-
-            bodyLine = bodyLine.replace(ifs.get(i)
-                            .replace(";", ";\n")
-                            .replace("}", "}\n")
-                            .replace("{", "{\n")
-                    ,"");
+            bodyLine = bodyLine.replace(ifs.get(i),"");
         }
 
         this.ifs = ifs.stream()
