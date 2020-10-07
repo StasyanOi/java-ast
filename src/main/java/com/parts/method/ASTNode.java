@@ -17,10 +17,6 @@ public class ASTNode implements Declaration {
         this.rightASTNode = rightASTNode;
     }
 
-    /***
-     *
-     * @return The value held by the node.
-     */
     public String getValue() {
         return value;
     }

@@ -13,6 +13,7 @@ import static java.util.stream.Collectors.toList;
 
 public class Body implements Declaration {
 
+    private List<com.parts.method.If> ifs;
     private List<com.parts.method.Declaration> declarations;
     private List<com.parts.method.Expression> expressions;
     private List<com.parts.method.ForLoop> forLoops;
@@ -48,6 +49,27 @@ public class Body implements Declaration {
                 .map(WhileLoop::new)
                 .collect(toList());
 
+        //get ifs
+        bodyLine = bodyLine.replace("{", "{\n")
+                .replace("}", "}\n")
+                .replace(";", ";\n");
+        String[] strings2 = bodyLine.split("\n");
+        List<String> ifs = getIfs(strings2);
+        for (int i = 0; i < ifs.size(); i++) {
+
+            bodyLine = bodyLine.replace(ifs.get(i)
+                            .replace(";", ";\n")
+                            .replace("}", "}\n")
+                            .replace("{", "{\n")
+                    ,"");
+        }
+
+        this.ifs = ifs.stream()
+                .map(com.parts.method.If::new)
+                .collect(toList());
+
+
+
         //get expression
         bodyLine = bodyLine.replace("{", "{\n").replace(";", ";\n");
         String[] strings = bodyLine.split("\n");
@@ -69,13 +91,9 @@ public class Body implements Declaration {
             bodyLine = bodyLine.replace(declarations.get(i),"");
         }
 
-
         this.declarations = declarations.stream()
                 .map(com.parts.method.Declaration::new)
                 .collect(toList());
-
-
-
 
 
     }
@@ -146,6 +164,32 @@ public class Body implements Declaration {
         return forLoops;
     }
 
+    private List<String> getIfs(String[] split) {
+        List<String> Ifs = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            String If = "";
+            if (split[i].contains("if")) {
+                int leftBraceCounter = 0;
+                int rightBraceCounter = 0;
+                while (true) {
+                    If += split[i];
+                    if (split[i].contains("{")) {
+                        ++leftBraceCounter;
+                    }
+                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
+                        break;
+                    }
+                    if (split[i].contains("}")) {
+                        ++rightBraceCounter;
+                    }
+                    ++i;
+                }
+                Ifs.add(If);
+            }
+        }
+        return Ifs;
+    }
+
     @Override
     public MutableNode getNode() {
         MutableNode body = JavaParser.getNode("body");
@@ -153,6 +197,7 @@ public class Body implements Declaration {
         declarations.forEach(declaration -> body.addLink(declaration.getNode()));
         forLoops.forEach(forLoop -> body.addLink(forLoop.getNode()));
         whileLoops.forEach(whileLoop -> body.addLink(whileLoop.getNode()));
+        ifs.forEach(If -> body.addLink(If.getNode()));
         return body;
     }
 }

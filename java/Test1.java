@@ -1,3 +1,6 @@
+package com;
+
+import static java.lang.Integer.parseInt;
 
 public class Test1{
 
@@ -10,6 +13,19 @@ public class Test1{
     }
 
     public static void main(String[] args){
-        System.out.println(calculateFactorial(4));
+
+        String string = "10";
+
+        int l = parseInt(string);
+
+        int x = calculateFactorial(l);
+
+        if (x > 10) {
+            System.out.println(x + " is bigger than 10");
+        }
+
+        if (x <= 10) {
+            System.out.println(x + " is equal or less than 10");
+        }
     }
 }
