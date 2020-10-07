@@ -27,7 +27,7 @@ public class Test1 {
     public static void main(String[] args) {
         int a = 123;
         int b = 123;
-        int c = 1 + 4 - 2 * 7;
+        int c = 100 + 40 - 22 * 73 + q;
         for (int j = 0; j < 10; j++) {
             int a = (6 * 4) * 7 - (3 - 9);
         }

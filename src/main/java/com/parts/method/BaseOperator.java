@@ -2,12 +2,12 @@ package com.parts.method;
 
 public class BaseOperator implements Operator {
 
-    private final char symbol;
+    private final String symbol;
     private final boolean rightAssociative;
     private final int precedence;
 
 
-    public BaseOperator(char symbol, boolean rightAssociative,
+    public BaseOperator(String symbol, boolean rightAssociative,
                         int precedence) {
         this.symbol = symbol;
         this.rightAssociative = rightAssociative;
@@ -32,13 +32,13 @@ public class BaseOperator implements Operator {
     }
 
     @Override
-    public char getSymbol() {
+    public String getSymbol() {
         return symbol;
     }
 
     @Override
     public String toString() {
-        return Character.toString(symbol);
+        return symbol;
     }
 
 

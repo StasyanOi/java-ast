@@ -84,7 +84,7 @@ public class Expression implements Declaration {
 
     }
 
-    private static void addNode(Stack<ASTNode> stack, char operator) {
+    private static void addNode(Stack<ASTNode> stack, String operator) {
         final ASTNode rightASTNode = stack.pop();
         final ASTNode leftASTNode = stack.pop();
         stack.push(new ASTNode(operator, leftASTNode, rightASTNode));
@@ -92,33 +92,37 @@ public class Expression implements Declaration {
 
     public ASTNode convertInfixNotationToAST(final String input) {
         final Collection<Operator> inputOps = new ArrayList<>();
-        inputOps.add(new BaseOperator('^', true, 4));
-        inputOps.add(new BaseOperator('*', false, 3));
-        inputOps.add(new BaseOperator('/', false, 3));
-        inputOps.add(new BaseOperator('+', false, 2));
-        inputOps.add(new BaseOperator('-', false, 2));
+        inputOps.add(new BaseOperator("^", true, 4));
+        inputOps.add(new BaseOperator("*", false, 3));
+        inputOps.add(new BaseOperator("/", false, 3));
+        inputOps.add(new BaseOperator("+", false, 2));
+        inputOps.add(new BaseOperator("-", false, 2));
 
-        Map<Character, Operator> operators = new HashMap<>();
+        Map<String, Operator> operators = new HashMap<>();
         for (Operator o : inputOps) {
             operators.put(o.getSymbol(), o);
         }
 
-        final Stack<Character> operatorStack = new Stack<>();
+        final Stack<String> operatorStack = new Stack<>();
         final Stack<ASTNode> operandStack = new Stack<>();
         final char[] chars = input.toCharArray();
+
+        final String[] strings = getStringArr(chars).toArray(String[]::new);
+
         main:
-        for (char c : chars) {
-            char popped;
+        for (String w : strings) {
+            String c = String.valueOf(w);
+            String popped;
             switch (c) {
-                case ' ':
+                case " ":
                     break;
-                case '(':
-                    operatorStack.push('(');
+                case "(":
+                    operatorStack.push(String.valueOf('('));
                     break;
-                case ')':
+                case ")":
                     while (!operatorStack.isEmpty()) {
                         popped = operatorStack.pop();
-                        if ('(' == popped) {
+                        if ("(".equals(popped)) {
                             continue main;
                         } else {
                             addNode(operandStack, popped);
@@ -152,5 +156,45 @@ public class Expression implements Declaration {
             addNode(operandStack, operatorStack.pop());
         }
         return operandStack.pop();
+    }
+
+    private List<String> getStringArr(char[] chars) {
+
+        List<String> strings = new ArrayList<>();
+
+        for (int i = 0; i < chars.length; i++) {
+
+            if (i != chars.length - 1){
+                if (isLong(chars[i]) && isLong(chars[i + 1])) {
+                    String number = "";
+                    while (isLong(chars[i])) {
+                        number += String.valueOf(chars[i]);
+                        i++;
+                        if (i == chars.length || !isLong(chars[i])) {
+                            strings.add(number);
+                            if (i != chars.length){
+                                strings.add(String.valueOf(chars[i]));
+                            }
+                            break;
+                        }
+                    }
+                } else {
+                    strings.add(String.valueOf(chars[i]));
+                }
+            } else {
+                strings.add(String.valueOf(chars[i]));
+            }
+        }
+
+        return strings;
+    }
+
+    private boolean isLong(Character c){
+        try {
+            Long.parseLong(c.toString());
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

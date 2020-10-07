@@ -6,12 +6,12 @@ import guru.nidi.graphviz.model.MutableNode;
 
 public class ASTNode implements Declaration {
 
-    private final char value;
+    private final String value;
     private final ASTNode leftASTNode;
     private final ASTNode rightASTNode;
 
 
-    public ASTNode(char value, ASTNode leftASTNode, ASTNode rightASTNode) {
+    public ASTNode(String value, ASTNode leftASTNode, ASTNode rightASTNode) {
         this.value = value;
         this.leftASTNode = leftASTNode;
         this.rightASTNode = rightASTNode;
@@ -21,7 +21,7 @@ public class ASTNode implements Declaration {
      *
      * @return The value held by the node.
      */
-    public char getValue() {
+    public String getValue() {
         return value;
     }
 

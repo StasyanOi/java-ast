@@ -8,7 +8,7 @@ public interface Operator {
     int comparePrecedence(Operator o);
 
 
-    char getSymbol();
+    String getSymbol();
 
 
 }
