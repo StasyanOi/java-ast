@@ -10,7 +10,6 @@ public class Test1{
 
         int l = parseInt(s);
 
-
         for (int i = 0; i < 100; i++) {
             if (true) {
                 l = 10 + s;
