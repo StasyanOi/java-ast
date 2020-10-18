@@ -15,6 +15,14 @@ public class Test1{
             if (true) {
                 l = 10 + s;
                 System.out.println("Qwe");
+                if (true) {
+                    l = 10 + s;
+                    System.out.println("Qwe");
+                }
+            }
+            if (true) {
+                l = 10 + s;
+                System.out.println("Qwe");
             }
         }
 
