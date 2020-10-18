@@ -4,7 +4,6 @@ import com.JavaParser;
 import com.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
-import javax.swing.tree.MutableTreeNode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,6 +122,12 @@ public class Body implements Declaration {
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
                     }
+                    if (split[i].contains("{")) {
+                        ++bracket;
+                    }
+                    if (split[i].contains("}")) {
+                        --bracket;
+                    }
                     ++i;
                 }
                 whileLoops.add(whileLoop);
@@ -156,6 +161,12 @@ public class Body implements Declaration {
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
                     }
+                    if (split[i].contains("{")) {
+                        ++bracket;
+                    }
+                    if (split[i].contains("}")) {
+                        --bracket;
+                    }
                     ++i;
                 }
                 forLoops.add(forLoop);
@@ -188,6 +199,12 @@ public class Body implements Declaration {
                     }
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
+                    }
+                    if (split[i].contains("{")) {
+                        ++bracket;
+                    }
+                    if (split[i].contains("}")) {
+                        --bracket;
                     }
                     ++i;
                 }
