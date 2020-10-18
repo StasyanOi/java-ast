@@ -6,24 +6,22 @@ public class Test1{
 
     public static void main(String[] args){
 
-        String string = "10";
+        String s = "10";
 
-        int l = parseInt(string);
+        int l = parseInt(s);
+
 
         for (int i = 0; i < 100; i++) {
-            System.out.println(i);
-            for (int i = 0; i < 100; i++) {
-                System.out.println(i);
-                for (int i = 0; i < 100; i++) {
-                    System.out.println(i);
-                }
+            if (true) {
+                l = 10 + s;
+                System.out.println("Qwe");
             }
         }
 
         int x = calculateFactorial(l);
         if (x > 10) {
             while (true) {
-                while (true) {
+                while (x < 10000) {
                     System.out.println("Test 2");
                 }
                 System.out.println("Test 2");

@@ -113,11 +113,11 @@ public class Body implements Declaration {
                 int rightBraceCounter = 0;
                 while (true) {
                     whileLoop += split[i];
-                    if (split[i].contains("{")) {
-                        ++leftBraceCounter;
-                    }
                     if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
                         break;
+                    }
+                    if (split[i].contains("{")) {
+                        ++leftBraceCounter;
                     }
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
@@ -152,11 +152,11 @@ public class Body implements Declaration {
                 int rightBraceCounter = 0;
                 while (true) {
                     forLoop += split[i];
-                    if (split[i].contains("{")) {
-                        ++leftBraceCounter;
-                    }
                     if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
                         break;
+                    }
+                    if (split[i].contains("{")) {
+                        ++leftBraceCounter;
                     }
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
@@ -191,11 +191,11 @@ public class Body implements Declaration {
                 int rightBraceCounter = 0;
                 while (true) {
                     If += split[i];
-                    if (split[i].contains("{")) {
-                        ++leftBraceCounter;
-                    }
                     if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
                         break;
+                    }
+                    if (split[i].contains("{")) {
+                        ++leftBraceCounter;
                     }
                     if (split[i].contains("}")) {
                         ++rightBraceCounter;
