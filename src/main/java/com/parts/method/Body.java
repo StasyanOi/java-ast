@@ -106,9 +106,10 @@ public class Body implements Declaration {
 
     private List<String> getWhileLoops(String[] split) {
         List<String> whileLoops = new ArrayList<>();
+        int bracket = 0;
         for (int i = 0; i < split.length; i++) {
             String whileLoop = "";
-            if (split[i].contains("while")) {
+            if (split[i].contains("while") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
@@ -126,15 +127,22 @@ public class Body implements Declaration {
                 }
                 whileLoops.add(whileLoop);
             }
+            if (split[i].contains("{")) {
+                ++bracket;
+            }
+            if (split[i].contains("}")) {
+                --bracket;
+            }
         }
         return whileLoops;
     }
 
     private List<String> getForLoops(String[] split) {
         List<String> forLoops = new ArrayList<>();
+        int bracket = 0;
         for (int i = 0; i < split.length; i++) {
             String forLoop = "";
-            if (split[i].contains("for")) {
+            if (split[i].contains("for") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
@@ -152,15 +160,22 @@ public class Body implements Declaration {
                 }
                 forLoops.add(forLoop);
             }
+            if (split[i].contains("{")) {
+                ++bracket;
+            }
+            if (split[i].contains("}")) {
+                --bracket;
+            }
         }
         return forLoops;
     }
 
     private List<String> getIfs(String[] split) {
         List<String> Ifs = new ArrayList<>();
+        int bracket = 0;
         for (int i = 0; i < split.length; i++) {
             String If = "";
-            if (split[i].contains("if")) {
+            if (split[i].contains("if") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
@@ -178,6 +193,13 @@ public class Body implements Declaration {
                 }
                 Ifs.add(If);
             }
+            if (split[i].contains("{")) {
+                ++bracket;
+            }
+            if (split[i].contains("}")) {
+                --bracket;
+            }
+
         }
         return Ifs;
     }

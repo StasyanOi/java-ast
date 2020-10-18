@@ -8,6 +8,12 @@ public class Test1{
         int r = 1;
         for (int i = 1; i <= n; i++){
             r = r * i;
+            if (r < 400) {
+                System.out.println("Test");
+                while (true) {
+                    System.out.println("Test 2");
+                }
+            }
         }
         if (r > 100) {
             System.out.println("The factorial is begger than 100");
