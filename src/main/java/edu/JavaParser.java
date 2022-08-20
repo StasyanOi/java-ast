@@ -1,9 +1,9 @@
-package com;
+package edu;
 
-import com.parts.ClassDeclaration;
-import com.parts.ImportDeclaration;
-import com.parts.ImportStaticDeclaration;
-import com.parts.PackageDeclaration;
+import edu.parts.ClassDeclaration;
+import edu.parts.ImportDeclaration;
+import edu.parts.ImportStaticDeclaration;
+import edu.parts.PackageDeclaration;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
@@ -11,13 +11,10 @@ import guru.nidi.graphviz.model.MutableGraph;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.SneakyThrows;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static guru.nidi.graphviz.model.Factory.mutGraph;
@@ -28,19 +25,13 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 
 public class JavaParser {
-    public static void parse(String[] args) throws IOException {
-        Path javaFilePath = null;
-        if (args.length == 0) {
-            javaFilePath = Paths.get("java");
-        }
-        Files.list(requireNonNull(javaFilePath))
-                .filter(path -> path.getFileName().toString().endsWith(".java"))
-                .map(Path::getFileName)
-                .forEach(JavaParser::createAST);
-    }
+
+    private JavaParser() {}
+
+    private static int nodeIdGenerator;
 
     @SneakyThrows
-    private static void createAST(Path javaFile) {
+    public static void createAST(Path javaFile) {
 
         List<String> codeLines = Files.lines(Paths.get("java", javaFile.toString())).collect(
                 collectingAndThen(joining()
@@ -89,7 +80,7 @@ public class JavaParser {
     }
 
     public static MutableNode getNode(String string) {
-        return mutNode(UUID.randomUUID().toString()).add(Shape.BOX).add("label", string);
+        return mutNode(String.valueOf(nodeIdGenerator++)).add(Shape.BOX).add("label", string);
     }
 
     private static List<ClassDeclaration> getClasses(List<String> codeLines) {

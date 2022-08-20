@@ -1,13 +1,11 @@
-package com.parts;
+package edu.parts;
 
-import com.JavaParser;
+import edu.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter

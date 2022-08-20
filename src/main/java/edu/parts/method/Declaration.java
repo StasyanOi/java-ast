@@ -1,6 +1,6 @@
-package com.parts.method;
+package edu.parts.method;
 
-import com.JavaParser;
+import edu.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Declaration implements com.parts.Declaration {
+public class Declaration implements edu.parts.Declaration {
     String type;
     String var;
 

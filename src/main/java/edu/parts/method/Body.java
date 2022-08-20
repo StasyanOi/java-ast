@@ -1,7 +1,7 @@
-package com.parts.method;
+package edu.parts.method;
 
-import com.JavaParser;
-import com.parts.Declaration;
+import edu.JavaParser;
+import edu.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import static java.util.stream.Collectors.toList;
 
 public class Body implements Declaration {
 
-    private List<com.parts.method.If> ifs;
-    private List<com.parts.method.Declaration> declarations;
-    private List<com.parts.method.Expression> expressions;
-    private List<com.parts.method.ForLoop> forLoops;
-    private List<com.parts.method.WhileLoop> whileLoops;
+    private List<If> ifs;
+    private List<edu.parts.method.Declaration> declarations;
+    private List<Expression> expressions;
+    private List<ForLoop> forLoops;
+    private List<WhileLoop> whileLoops;
 
     public Body(String body) {
         body = body.replace("{", "\n{\n")
@@ -35,7 +35,7 @@ public class Body implements Declaration {
         }
 
         this.ifs = ifs.stream()
-                .map(com.parts.method.If::new)
+                .map(If::new)
                 .collect(toList());
 
         //get for loops
@@ -83,7 +83,7 @@ public class Body implements Declaration {
         }
 
         this.declarations = declarations.stream()
-                .map(com.parts.method.Declaration::new)
+                .map(edu.parts.method.Declaration::new)
                 .collect(toList());
 
 
