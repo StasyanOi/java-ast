@@ -1,4 +1,4 @@
-package com.parts;
+package edu.parts;
 
 import guru.nidi.graphviz.model.MutableNode;
 

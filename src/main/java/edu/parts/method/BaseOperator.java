@@ -1,4 +1,4 @@
-package com.parts.method;
+package edu.parts.method;
 
 public class BaseOperator implements Operator {
 

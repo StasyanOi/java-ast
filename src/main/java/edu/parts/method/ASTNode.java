@@ -1,7 +1,7 @@
-package com.parts.method;
+package edu.parts.method;
 
-import com.JavaParser;
-import com.parts.Declaration;
+import edu.JavaParser;
+import edu.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
 public class ASTNode implements Declaration {
