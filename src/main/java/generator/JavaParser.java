@@ -1,9 +1,9 @@
-package edu.generator;
+package generator;
 
-import edu.generator.parts.ClassDeclaration;
-import edu.generator.parts.ImportDeclaration;
-import edu.generator.parts.ImportStaticDeclaration;
-import edu.generator.parts.PackageDeclaration;
+import generator.parts.ClassDeclaration;
+import generator.parts.ImportDeclaration;
+import generator.parts.ImportStaticDeclaration;
+import generator.parts.PackageDeclaration;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;

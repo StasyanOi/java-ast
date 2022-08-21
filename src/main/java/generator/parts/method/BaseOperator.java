@@ -1,4 +1,4 @@
-package edu.generator.parts.method;
+package generator.parts.method;
 
 public class BaseOperator implements Operator {
 

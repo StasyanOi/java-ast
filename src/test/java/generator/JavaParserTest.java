@@ -1,6 +1,5 @@
-package edu;
+package generator;
 
-import edu.generator.JavaParser;
 import org.junit.Test;
 
 import java.io.IOException;

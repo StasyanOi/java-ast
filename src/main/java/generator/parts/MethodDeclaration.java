@@ -1,7 +1,7 @@
-package edu.generator.parts;
+package generator.parts;
 
-import edu.generator.JavaParser;
-import edu.generator.parts.method.Body;
+import generator.JavaParser;
+import generator.parts.method.Body;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
