@@ -1,7 +1,7 @@
-package edu.parts.method;
+package edu.generator.parts.method;
 
-import edu.JavaParser;
-import edu.parts.Declaration;
+import edu.generator.JavaParser;
+import edu.generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,10 +15,9 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Expression implements Declaration {
-    List<String> expressions = new ArrayList<>();
+    private List<String> expressions = new ArrayList<>();
 
     public Expression(String expression) {
-
         if (expression.contains("==")) {
             addExpressions(expression, "==");
         } else if (expression.contains("=>")) {
@@ -37,7 +36,7 @@ public class Expression implements Declaration {
             if (expression.contains("++")) {
                 expressions.add("++");
                 expressions.add(expression.replace("++", ""));
-            } else if (expression.contains("--")){
+            } else if (expression.contains("--")) {
                 expressions.add("--");
                 expressions.add(expression.replace("--", ""));
             } else {
@@ -74,8 +73,7 @@ public class Expression implements Declaration {
                 }
             } else {
                 ASTNode astNode = convertInfixNotationToAST(exprPart);
-                MutableNode expr = astNode.getNode();
-                return expr;
+                return astNode.getNode();
             }
 
         } else {
@@ -164,15 +162,15 @@ public class Expression implements Declaration {
 
         for (int i = 0; i < chars.length; i++) {
 
-            if (i != chars.length - 1){
+            if (i != chars.length - 1) {
                 if (isLong(chars[i]) && isLong(chars[i + 1])) {
-                    String number = "";
+                    StringBuilder number = new StringBuilder();
                     while (isLong(chars[i])) {
-                        number += String.valueOf(chars[i]);
+                        number.append(chars[i]);
                         i++;
                         if (i == chars.length || !isLong(chars[i])) {
-                            strings.add(number);
-                            if (i != chars.length){
+                            strings.add(number.toString());
+                            if (i != chars.length) {
                                 strings.add(String.valueOf(chars[i]));
                             }
                             break;
@@ -189,7 +187,7 @@ public class Expression implements Declaration {
         return strings;
     }
 
-    private boolean isLong(Character c){
+    private boolean isLong(Character c) {
         try {
             Long.parseLong(c.toString());
         } catch (Exception e) {

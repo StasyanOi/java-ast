@@ -1,4 +1,6 @@
-import edu.JavaParser;
+package edu;
+
+import edu.generator.JavaParser;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,7 +1,7 @@
-package edu.parts.method;
+package edu.generator.parts.method;
 
-import edu.JavaParser;
-import edu.parts.Declaration;
+import edu.generator.JavaParser;
+import edu.generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class If implements Declaration {
 
-    Expression init;
-    Body body;
+    private Expression init;
+    private Body body;
 
     public If(String If) {
         int f = If.indexOf("(");

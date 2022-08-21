@@ -1,7 +1,7 @@
-package edu.parts.method;
+package edu.generator.parts.method;
 
-import edu.JavaParser;
-import edu.parts.Declaration;
+import edu.generator.JavaParser;
+import edu.generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class WhileLoop implements Declaration {
 
-    Expression expression;
-    Body body;
+    private Expression expression;
+    private Body body;
 
     public WhileLoop(String whileLoop) {
         int start = whileLoop.indexOf("(");

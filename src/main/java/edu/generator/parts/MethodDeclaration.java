@@ -1,7 +1,7 @@
-package edu.parts;
+package edu.generator.parts;
 
-import edu.JavaParser;
-import edu.parts.method.Body;
+import edu.generator.JavaParser;
+import edu.generator.parts.method.Body;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MethodDeclaration implements Declaration{
+
     private String name;
     private String modifiers;
     private String returnType;
@@ -48,7 +49,7 @@ public class MethodDeclaration implements Declaration{
         Operator(int p) { precedence = p; }
     }
 
-    private static Map<String, Operator> ops = new HashMap<String, Operator>() {{
+    private static Map<String, Operator> ops = new HashMap<>() {{
         put("+", Operator.ADD);
         put("-", Operator.SUBTRACT);
         put("*", Operator.MULTIPLY);
