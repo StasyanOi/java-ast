@@ -1,6 +1,6 @@
-package com.parts.method;
+package generator.parts.method;
 
-import com.JavaParser;
+import generator.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,9 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Declaration implements com.parts.Declaration {
-    String type;
-    String var;
+public class Declaration implements generator.parts.Declaration {
+    private String type;
+    private String var;
 
     public Declaration(String declaration) {
         String trimedDecl = declaration.trim();

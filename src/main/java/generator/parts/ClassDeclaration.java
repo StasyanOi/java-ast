@@ -1,6 +1,6 @@
-package com.parts;
+package generator.parts;
 
-import com.JavaParser;
+import generator.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,31 +13,28 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static guru.nidi.graphviz.model.Factory.mutNode;
-import static guru.nidi.graphviz.model.Factory.node;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClassDeclaration implements Declaration {
+
     private String name;
     private List<String> modifiers;
     private String body;
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         MutableNode clazz = JavaParser.getNode(name);
         MutableNode body = JavaParser.getNode("body ");
-
         MutableNode modifiers = JavaParser.getNode(String.join(" ", this.modifiers));
 
         //change content to separate classes
-
         String[] bodyLines = this.body.replace("{", "{\n")
                 .replace("}", "}\n")
                 .replace(";", ";\n")
                 .replace("{", " \n{")
                 .split("\n");
+
         bodyLines = Arrays.stream(bodyLines).filter(s -> !s.isBlank()).toArray(String[]::new);
 
         List<Declaration> expressionsAndMethods = getExpressionsAndMethods(bodyLines);
@@ -60,7 +57,7 @@ public class ClassDeclaration implements Declaration {
                 String[] expr = bodyLine.trim().split(" ");
 
                 ExpressionDeclaration expressionDeclaration;
-                if(expr.length == 2) {
+                if (expr.length == 2) {
                     expressionDeclaration = new ExpressionDeclaration(expr[0], expr[1]);
                 } else {
                     expressionDeclaration = new ExpressionDeclaration(expr[0], expr[1], expr[2], expr[3]);
@@ -78,7 +75,7 @@ public class ClassDeclaration implements Declaration {
                 String params = getParams(bodyLine.substring(pivot));
                 String newPos = methodBody.substring(methodBody.lastIndexOf("}") + 2);
                 i = Integer.parseInt(newPos);
-                methodBody = methodBody.substring(0,methodBody.lastIndexOf("}") + 1);
+                methodBody = methodBody.substring(0, methodBody.lastIndexOf("}") + 1);
                 MethodDeclaration methodDeclaration = new MethodDeclaration(name, modifiers, returnType, params, methodBody);
                 methods.add(methodDeclaration);
             }
@@ -87,8 +84,7 @@ public class ClassDeclaration implements Declaration {
         Stream<ExpressionDeclaration> expressionDeclarationStream = expressions.stream();
         Stream<MethodDeclaration> methodDeclarationStream = methods.stream();
 
-        return Stream.concat(expressionDeclarationStream, methodDeclarationStream)
-                .collect(Collectors.toList());
+        return Stream.concat(expressionDeclarationStream, methodDeclarationStream).collect(Collectors.toList());
     }
 
     private String getParams(String params) {
@@ -96,7 +92,7 @@ public class ClassDeclaration implements Declaration {
     }
 
     private String getMethodBody(int i, String[] bodyLines) {
-        StringBuilder methodBody  = new StringBuilder("");
+        StringBuilder methodBody = new StringBuilder();
         int leftSquglyCount = 0;
         int rightSquglyCount = 0;
         ++i;
@@ -105,13 +101,17 @@ public class ClassDeclaration implements Declaration {
             if (bodyLines[i].contains("}") && leftSquglyCount - rightSquglyCount == 1) {
                 break;
             }
-            if (bodyLines[i].contains("{")) {++leftSquglyCount;};
+            if (bodyLines[i].contains("{")) {
+                ++leftSquglyCount;
+            }
+
             if (bodyLines[i].contains("}")) {
                 ++rightSquglyCount;
-            };
+            }
+
             ++i;
 
         }
-        return methodBody.toString()+i;
+        return methodBody.toString() + i;
     }
 }

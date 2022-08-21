@@ -1,7 +1,7 @@
-package com.parts.method;
+package generator.parts.method;
 
-import com.JavaParser;
-import com.parts.Declaration;
+import generator.JavaParser;
+import generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import static java.util.stream.Collectors.toList;
 
 public class Body implements Declaration {
 
-    private List<com.parts.method.If> ifs;
-    private List<com.parts.method.Declaration> declarations;
-    private List<com.parts.method.Expression> expressions;
-    private List<com.parts.method.ForLoop> forLoops;
-    private List<com.parts.method.WhileLoop> whileLoops;
+    private final List<If> ifs;
+    private final List<generator.parts.method.Declaration> declarations;
+    private final List<Expression> expressions;
+    private final List<ForLoop> forLoops;
+    private final List<WhileLoop> whileLoops;
 
     public Body(String body) {
         body = body.replace("{", "\n{\n")
@@ -30,18 +30,18 @@ public class Body implements Declaration {
 
         //get ifs
         List<String> ifs = getIfs(split);
-        for (int i = 0; i < ifs.size(); i++) {
-            bodyLine = bodyLine.replace(ifs.get(i),"");
+        for (String anIf : ifs) {
+            bodyLine = bodyLine.replace(anIf, "");
         }
 
         this.ifs = ifs.stream()
-                .map(com.parts.method.If::new)
+                .map(If::new)
                 .collect(toList());
 
         //get for loops
         List<String> forLoops = getForLoops(split);
-        for (int i = 0; i < forLoops.size(); i++) {
-            bodyLine = bodyLine.replace(forLoops.get(i), "");
+        for (String forLoop : forLoops) {
+            bodyLine = bodyLine.replace(forLoop, "");
         }
 
         this.forLoops = forLoops.stream()
@@ -50,24 +50,21 @@ public class Body implements Declaration {
 
         //get while loops
         List<String> whileLoops = getWhileLoops(split);
-        for (int i = 0; i < whileLoops.size(); i++) {
-            bodyLine = bodyLine.replace(whileLoops.get(i), "");
+        for (String whileLoop : whileLoops) {
+            bodyLine = bodyLine.replace(whileLoop, "");
         }
 
         this.whileLoops = whileLoops.stream()
                 .map(WhileLoop::new)
                 .collect(toList());
 
-
-
-
         //get expression
         bodyLine = bodyLine.replace("{", "{\n").replace(";", ";\n");
         String[] strings = bodyLine.split("\n");
         List<String> expressions = getExpressions(strings);
-        bodyLine = bodyLine.replace("\n","");
-        for (int i = 0; i < expressions.size(); i++) {
-            bodyLine = bodyLine.replace(expressions.get(i),"");
+        bodyLine = bodyLine.replace("\n", "");
+        for (String expression : expressions) {
+            bodyLine = bodyLine.replace(expression, "");
         }
 
         this.expressions = expressions.stream()
@@ -78,42 +75,38 @@ public class Body implements Declaration {
         bodyLine = bodyLine.replace("{", "{\n").replace(";", ";\n");
         String[] strings1 = bodyLine.split("\n");
         List<String> declarations = getDeclarations(strings1);
-        for (int i = 0; i < declarations.size(); i++) {
-            bodyLine = bodyLine.replace(declarations.get(i),"");
+        for (String declaration : declarations) {
+            bodyLine = bodyLine.replace(declaration, "");
         }
 
         this.declarations = declarations.stream()
-                .map(com.parts.method.Declaration::new)
+                .map(generator.parts.method.Declaration::new)
                 .collect(toList());
-
-
     }
 
     private List<String> getDeclarations(String[] strings1) {
-        List<String> collect = Arrays.stream(strings1).filter(line -> line.trim()
-                .matches("[A-Za-z0-9]* [a-z][a-zA-Z0-9]*;"))
+        return Arrays.stream(strings1).filter(line -> line.trim()
+                        .matches("[A-Za-z0-9]* [a-z][a-zA-Z0-9]*;"))
                 .collect(toList());
-        return collect;
     }
 
     private List<String> getExpressions(String[] split) {
-        List<String> expressions = Arrays.stream(split)
+        return Arrays.stream(split)
                 .filter(line -> line.matches(".*[+-/*=].*"))
                 .collect(toList());
-        return expressions;
     }
 
     private List<String> getWhileLoops(String[] split) {
         List<String> whileLoops = new ArrayList<>();
         int bracket = 0;
         for (int i = 0; i < split.length; i++) {
-            String whileLoop = "";
+            StringBuilder whileLoop = new StringBuilder();
             if (split[i].contains("while") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
-                    whileLoop += split[i];
-                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
+                    whileLoop.append(split[i]);
+                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1) {
                         break;
                     }
                     if (split[i].contains("{")) {
@@ -130,7 +123,7 @@ public class Body implements Declaration {
                     }
                     ++i;
                 }
-                whileLoops.add(whileLoop);
+                whileLoops.add(whileLoop.toString());
             }
             if (split[i].contains("{")) {
                 ++bracket;
@@ -146,13 +139,13 @@ public class Body implements Declaration {
         List<String> forLoops = new ArrayList<>();
         int bracket = 0;
         for (int i = 0; i < split.length; i++) {
-            String forLoop = "";
+            StringBuilder forLoop = new StringBuilder();
             if (split[i].contains("for") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
-                    forLoop += split[i];
-                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
+                    forLoop.append(split[i]);
+                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1) {
                         break;
                     }
                     if (split[i].contains("{")) {
@@ -169,7 +162,7 @@ public class Body implements Declaration {
                     }
                     ++i;
                 }
-                forLoops.add(forLoop);
+                forLoops.add(forLoop.toString());
             }
             if (split[i].contains("{")) {
                 ++bracket;
@@ -185,13 +178,13 @@ public class Body implements Declaration {
         List<String> Ifs = new ArrayList<>();
         int bracket = 0;
         for (int i = 0; i < split.length; i++) {
-            String If = "";
+            StringBuilder anIf = new StringBuilder();
             if (split[i].contains("if") && bracket == 1) {
                 int leftBraceCounter = 0;
                 int rightBraceCounter = 0;
                 while (true) {
-                    If += split[i];
-                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1){
+                    anIf.append(split[i]);
+                    if (split[i].contains("}") && leftBraceCounter - rightBraceCounter == 1) {
                         break;
                     }
                     if (split[i].contains("{")) {
@@ -208,7 +201,7 @@ public class Body implements Declaration {
                     }
                     ++i;
                 }
-                Ifs.add(If);
+                Ifs.add(anIf.toString());
             }
             if (split[i].contains("{")) {
                 ++bracket;
@@ -216,7 +209,6 @@ public class Body implements Declaration {
             if (split[i].contains("}")) {
                 --bracket;
             }
-
         }
         return Ifs;
     }

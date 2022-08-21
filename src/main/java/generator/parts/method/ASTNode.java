@@ -1,7 +1,7 @@
-package com.parts.method;
+package generator.parts.method;
 
-import com.JavaParser;
-import com.parts.Declaration;
+import generator.JavaParser;
+import generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
 public class ASTNode implements Declaration {
@@ -9,7 +9,6 @@ public class ASTNode implements Declaration {
     private final String value;
     private final ASTNode leftASTNode;
     private final ASTNode rightASTNode;
-
 
     public ASTNode(String value, ASTNode leftASTNode, ASTNode rightASTNode) {
         this.value = value;
@@ -21,7 +20,6 @@ public class ASTNode implements Declaration {
         return value;
     }
 
-
     public ASTNode getLeftASTNode() {
         return leftASTNode;
     }
@@ -29,7 +27,6 @@ public class ASTNode implements Declaration {
     public ASTNode getRightASTNode() {
         return rightASTNode;
     }
-
 
     @Override
     public MutableNode getNode() {
