@@ -45,4 +45,4 @@ public class Test1{
 ```
 
 Generated graph:
-![](graphviz/AST_Test1.svg)
+![Image](graphviz/AST_Test1.svg)
