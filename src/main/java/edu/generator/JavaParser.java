@@ -1,9 +1,9 @@
-package edu;
+package edu.generator;
 
-import edu.parts.ClassDeclaration;
-import edu.parts.ImportDeclaration;
-import edu.parts.ImportStaticDeclaration;
-import edu.parts.PackageDeclaration;
+import edu.generator.parts.ClassDeclaration;
+import edu.generator.parts.ImportDeclaration;
+import edu.generator.parts.ImportStaticDeclaration;
+import edu.generator.parts.PackageDeclaration;
 import guru.nidi.graphviz.attribute.Shape;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
@@ -21,7 +21,6 @@ import static guru.nidi.graphviz.model.Factory.mutGraph;
 import static guru.nidi.graphviz.model.Factory.mutNode;
 import static java.lang.String.join;
 import static java.util.Arrays.stream;
-import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.*;
 
 public class JavaParser {
@@ -56,7 +55,6 @@ public class JavaParser {
 
         List<ClassDeclaration> classDeclarations = getClasses(codeLines);
 
-
         String ASTFileName = "AST_" + javaFile.toString().replace(".java", "") + ".dot";
 
         MutableNode file = getNode("File");
@@ -87,7 +85,6 @@ public class JavaParser {
         List<String> classLines = codeLines.stream()
                 .filter(line -> !line.contains("package") && !line.contains("import") && !line.contains("import static"))
                 .collect(Collectors.toList());
-
 
         String classes = join("", classLines);
         classes = classes.replace("class", "|class");

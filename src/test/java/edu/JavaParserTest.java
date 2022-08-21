@@ -1,5 +1,6 @@
 package edu;
 
+import edu.generator.JavaParser;
 import org.junit.Test;
 
 import java.io.IOException;

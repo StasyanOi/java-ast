@@ -1,6 +1,6 @@
-package edu.parts;
+package edu.generator.parts;
 
-import edu.JavaParser;
+import edu.generator.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImportStaticDeclaration implements Declaration{
+public class PackageDeclaration implements Declaration {
+
     private String name;
 
     public MutableNode getNode(){

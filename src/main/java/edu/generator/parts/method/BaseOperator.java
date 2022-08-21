@@ -1,4 +1,4 @@
-package edu.parts.method;
+package edu.generator.parts.method;
 
 public class BaseOperator implements Operator {
 
@@ -6,9 +6,7 @@ public class BaseOperator implements Operator {
     private final boolean rightAssociative;
     private final int precedence;
 
-
-    public BaseOperator(String symbol, boolean rightAssociative,
-                        int precedence) {
+    public BaseOperator(String symbol, boolean rightAssociative, int precedence) {
         this.symbol = symbol;
         this.rightAssociative = rightAssociative;
         this.precedence = precedence;
@@ -21,10 +19,9 @@ public class BaseOperator implements Operator {
 
     @Override
     public int comparePrecedence(Operator o) {
-        if(o instanceof BaseOperator) {
+        if (o instanceof BaseOperator) {
             BaseOperator other = (BaseOperator) o;
-            return precedence > other.precedence ? 1 :
-                    other.precedence == precedence ? 0 : -1;
+            return Integer.compare(precedence, other.precedence);
         } else {
             // Defer the comparison to the second operator reflectively
             return -o.comparePrecedence(this);
@@ -40,6 +37,4 @@ public class BaseOperator implements Operator {
     public String toString() {
         return symbol;
     }
-
-
 }
