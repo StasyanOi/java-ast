@@ -21,8 +21,7 @@ public class JavaParserTest {
         String dotAstString = JavaParser.createAST(testClass, Format.DOT);
 
         try (Stream<String> lines = Files.lines(Paths.get("src/test/resources/expectedTest1.dot"))) {
-            String expectedDotFile = lines
-                    .collect(Collectors.joining("\n"));
+            String expectedDotFile = lines.collect(Collectors.joining("\n"));
             assertEquals(dotAstString, expectedDotFile);
         }
     }

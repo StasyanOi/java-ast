@@ -21,7 +21,7 @@ public class WhileLoop implements Declaration {
         int start = whileLoop.indexOf("(");
         int finish = whileLoop.indexOf(")");
         int bodyStart = whileLoop.indexOf("{");
-        String expressions = whileLoop.substring(start, finish+1)
+        String expressions = whileLoop.substring(start, finish + 1)
                 .replace("(", "")
                 .replace(")", "");
         this.expression = new Expression(expressions);

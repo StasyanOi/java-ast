@@ -25,7 +25,8 @@ import static java.util.stream.Collectors.*;
 
 public class JavaParser {
 
-    private JavaParser() {}
+    private JavaParser() {
+    }
 
     private static int nodeIdGenerator;
 
@@ -33,24 +34,23 @@ public class JavaParser {
     public static String createAST(Path javaFile, Format format) {
 
         List<String> codeLines = Files.lines(Paths.get("java", javaFile.toString())).collect(
-                collectingAndThen(joining()
-                        , fileCode -> stream(fileCode.split(";")).map(line -> line + ";").collect(toList())));
+                collectingAndThen(joining(), fileCode -> stream(fileCode.split(";")).map(line -> line + ";").collect(toList())));
 
         List<PackageDeclaration> packageDeclarations = codeLines.stream()
                 .filter(line -> line.contains("package"))
                 .map(line -> new PackageDeclaration(line.replace("package", "")
-                        .replace(";","")))
+                        .replace(";", "")))
                 .collect(toList());
 
         List<ImportDeclaration> importDeclarations = codeLines.stream().filter(line -> line.contains("import") && !line.contains("static"))
                 .map(line -> new ImportDeclaration(line.replace("import", "")
-                        .replace(";","")))
+                        .replace(";", "")))
                 .collect(toList());
 
         List<ImportStaticDeclaration> importStaticDeclarations = codeLines.stream()
                 .filter(line -> line.contains("import") && line.contains("static"))
                 .map(line -> new ImportStaticDeclaration(line.replace("import static", "")
-                        .replace(";","")))
+                        .replace(";", "")))
                 .collect(toList());
 
         List<ClassDeclaration> classDeclarations = getClasses(codeLines);
@@ -91,7 +91,7 @@ public class JavaParser {
         classes = classes.replace("}}", "}}|");
         List<String> classesAndModifiers = stream(classes.split("\\|"))
                 .collect(toList());
-        return attachModifiers(classesAndModifiers.subList(0 , classesAndModifiers.size() - 1))
+        return attachModifiers(classesAndModifiers.subList(0, classesAndModifiers.size() - 1))
                 .stream()
                 .map(JavaParser::getClassDeclaration)
                 .collect(toList());

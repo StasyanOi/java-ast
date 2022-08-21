@@ -15,7 +15,7 @@ public class PackageDeclaration implements Declaration {
 
     private String name;
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         return JavaParser.getNode(name);
     }
 }

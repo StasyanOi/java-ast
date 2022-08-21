@@ -29,7 +29,7 @@ public class ExpressionDeclaration implements Declaration {
         this.value = value;
     }
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         MutableNode exprNode = JavaParser.getNode(expression);
         MutableNode varNode = JavaParser.getNode(var);
         MutableNode valueNode = JavaParser.getNode(value);

@@ -11,11 +11,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ImportStaticDeclaration implements Declaration{
+public class ImportStaticDeclaration implements Declaration {
 
     private String name;
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         return JavaParser.getNode(name);
     }
 }

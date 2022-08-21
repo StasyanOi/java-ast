@@ -23,7 +23,7 @@ public class ForLoop implements Declaration {
         int start = forLoop.indexOf("(");
         int finish = forLoop.indexOf(")");
         int bodyStart = forLoop.indexOf("{");
-        String expressions = forLoop.substring(start, finish+1)
+        String expressions = forLoop.substring(start, finish + 1)
                 .replace("(", "")
                 .replace(")", "");
         String[] expressionsObj = expressions.split(";");
