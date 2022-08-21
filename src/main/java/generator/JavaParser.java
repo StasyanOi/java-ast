@@ -30,7 +30,7 @@ public class JavaParser {
     private static int nodeIdGenerator;
 
     @SneakyThrows
-    public static void createAST(Path javaFile) {
+    public static String createAST(Path javaFile, Format format) {
 
         List<String> codeLines = Files.lines(Paths.get("java", javaFile.toString())).collect(
                 collectingAndThen(joining()
@@ -74,7 +74,7 @@ public class JavaParser {
         file.addLink(packaje, impord, importStatic, classes);
 
         MutableGraph mutableGraph = mutGraph(javaFile.toString()).add(file.setName("File"));
-        Graphviz.fromGraph(mutableGraph).render(Format.DOT).toFile(Paths.get("ASTs",ASTFileName).toFile());
+        return Graphviz.fromGraph(mutableGraph).render(format).toString();
     }
 
     public static MutableNode getNode(String string) {
