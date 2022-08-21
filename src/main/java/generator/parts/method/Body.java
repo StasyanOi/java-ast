@@ -1,7 +1,7 @@
-package edu.generator.parts.method;
+package generator.parts.method;
 
-import edu.generator.JavaParser;
-import edu.generator.parts.Declaration;
+import generator.JavaParser;
+import generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import static java.util.stream.Collectors.toList;
 public class Body implements Declaration {
 
     private final List<If> ifs;
-    private final List<edu.generator.parts.method.Declaration> declarations;
+    private final List<generator.parts.method.Declaration> declarations;
     private final List<Expression> expressions;
     private final List<ForLoop> forLoops;
     private final List<WhileLoop> whileLoops;
@@ -80,7 +80,7 @@ public class Body implements Declaration {
         }
 
         this.declarations = declarations.stream()
-                .map(edu.generator.parts.method.Declaration::new)
+                .map(generator.parts.method.Declaration::new)
                 .collect(toList());
     }
 

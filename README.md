@@ -1,13 +1,35 @@
 # java-ast
 
-Supports parsing java code to AST for while and for loops, basic ifs (without else), expressions with numbers and 1 letter variables and declarations. 
-Put java files into java folder and run the Main class, the associated dot files will appear in ASTs folder
-
 Abstract Syntax Tree (AST): https://en.wikipedia.org/wiki/Abstract_syntax_tree
 
 DOT file parsing: https://dreampuf.github.io
 
-Example:
+This library supports parsing of java code to AST for while and for loops, basic ifs (without else), expressions with numbers and 1 letter variables and declarations. 
+
+### Usage:
+```
+import generator.JavaParser;
+import guru.nidi.graphviz.engine.Format;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        Path javaFilePath = Paths.get("JavaClass.java");
+
+        String astDotFileData = JavaParser.createAST(javaFilePath, Format.DOT);
+
+        Files.write(Paths.get("JavaClass.dot"), astDotFileData.getBytes(StandardCharsets.UTF_8));
+    }
+}
+```
+## Example:
+### Source code:
 ```java
 package com;
 
@@ -44,5 +66,5 @@ public class Test1{
 }
 ```
 
-Generated graph:
-![Image](graphviz/AST_Test1.svg)
+### Generated DOT graph:
+![Image](images/AST_Test1.svg)

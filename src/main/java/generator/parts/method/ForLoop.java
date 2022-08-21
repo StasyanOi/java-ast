@@ -1,7 +1,7 @@
-package edu.generator.parts.method;
+package generator.parts.method;
 
-import edu.generator.JavaParser;
-import edu.generator.parts.Declaration;
+import generator.JavaParser;
+import generator.parts.Declaration;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +23,7 @@ public class ForLoop implements Declaration {
         int start = forLoop.indexOf("(");
         int finish = forLoop.indexOf(")");
         int bodyStart = forLoop.indexOf("{");
-        String expressions = forLoop.substring(start, finish+1)
+        String expressions = forLoop.substring(start, finish + 1)
                 .replace("(", "")
                 .replace(")", "");
         String[] expressionsObj = expressions.split(";");

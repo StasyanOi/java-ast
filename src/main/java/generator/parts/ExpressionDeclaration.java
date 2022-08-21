@@ -1,6 +1,6 @@
-package edu.generator.parts;
+package generator.parts;
 
-import edu.generator.JavaParser;
+import generator.JavaParser;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +29,7 @@ public class ExpressionDeclaration implements Declaration {
         this.value = value;
     }
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         MutableNode exprNode = JavaParser.getNode(expression);
         MutableNode varNode = JavaParser.getNode(var);
         MutableNode valueNode = JavaParser.getNode(value);

@@ -1,7 +1,7 @@
-package edu.generator.parts;
+package generator.parts;
 
-import edu.generator.JavaParser;
-import edu.generator.parts.method.Body;
+import generator.JavaParser;
+import generator.parts.method.Body;
 import guru.nidi.graphviz.model.MutableNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MethodDeclaration implements Declaration{
+public class MethodDeclaration implements Declaration {
 
     private String name;
     private String modifiers;
@@ -22,7 +22,7 @@ public class MethodDeclaration implements Declaration{
     private String params;
     private String body;
 
-    public MutableNode getNode(){
+    public MutableNode getNode() {
         MutableNode methodNode = JavaParser.getNode(this.name);
         MutableNode returnTypeNode = JavaParser.getNode(this.returnType);
         MutableNode modifierNode = JavaParser.getNode(this.modifiers);
@@ -37,16 +37,18 @@ public class MethodDeclaration implements Declaration{
     }
 
     private MutableNode getBodyNode(String body) {
-        body = body.replace("\n","");
+        body = body.replace("\n", "");
         Body body1 = new Body(body);
         return body1.getNode();
     }
 
-    private enum Operator
-    {
+    private enum Operator {
         ADD(1), SUBTRACT(2), MULTIPLY(3), DIVIDE(4);
         final int precedence;
-        Operator(int p) { precedence = p; }
+
+        Operator(int p) {
+            precedence = p;
+        }
     }
 
     private static Map<String, Operator> ops = new HashMap<>() {{
@@ -56,20 +58,18 @@ public class MethodDeclaration implements Declaration{
         put("/", Operator.DIVIDE);
     }};
 
-    private static boolean isHigerPrec(String op, String sub)
-    {
+    private static boolean isHigerPrec(String op, String sub) {
         return (ops.containsKey(sub) && ops.get(sub).precedence >= ops.get(op).precedence);
     }
 
-    public static String postfix(String infix)
-    {
+    public static String postfix(String infix) {
         StringBuilder output = new StringBuilder();
-        Deque<String> stack  = new LinkedList<>();
+        Deque<String> stack = new LinkedList<>();
 
         for (String token : infix.split("\\s")) {
             // operator
             if (ops.containsKey(token)) {
-                while ( ! stack.isEmpty() && isHigerPrec(token, stack.peek()))
+                while (!stack.isEmpty() && isHigerPrec(token, stack.peek()))
                     output.append(stack.pop()).append(' ');
                 stack.push(token);
 
@@ -79,7 +79,7 @@ public class MethodDeclaration implements Declaration{
 
                 // right parenthesis
             } else if (token.equals(")")) {
-                while ( ! stack.peek().equals("("))
+                while (!stack.peek().equals("("))
                     output.append(stack.pop()).append(' ');
                 stack.pop();
 
@@ -89,7 +89,7 @@ public class MethodDeclaration implements Declaration{
             }
         }
 
-        while ( ! stack.isEmpty())
+        while (!stack.isEmpty())
             output.append(stack.pop()).append(' ');
 
         return output.toString();
